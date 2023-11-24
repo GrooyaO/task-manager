@@ -48,5 +48,22 @@ export default function defineRoutes(app: express.Application) {
     }
   })
 
+  // PUT - update a task
+  router.put('/task/:id', async (req: Request, res: Response) => {
+    try {
+      const updatedTask = await Task.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true, runValidators: true }
+      )
+      if (!updatedTask) {
+        return res.status(404).json({ message: 'Task not found' })
+      }
+      res.json(updatedTask)
+    } catch (error) {
+      console.error('Error updating task:', error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  })
   app.use(router)
 }
