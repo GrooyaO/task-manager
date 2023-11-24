@@ -8,7 +8,6 @@ export default function defineRoutes(app: express.Application) {
   //GET - retrieve tasks
   router.get('/tasks', async (req: Request, res: Response) => {
     const tasks = await Task.find()
-    console.log(res.json(tasks))
     return res.json(tasks)
   })
 
