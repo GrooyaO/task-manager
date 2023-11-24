@@ -16,14 +16,14 @@ Once the project is cloned cd into **root** directory and run:
 ```
 $ npm install
 ```
-Command above will install root dependancies. In this case there is only concurrently which allows for both client and server projects to run in parallel with one single command. More on [https://www.npmjs.com/package/concurrently]
+Command above will install root dependancies. In this case there is only concurrently which allows for both client and server projects to run in parallel with one single command. More on [npm concurrently](https://www.npmjs.com/package/concurrently)
 
 Next step is to install client and server directory dependancies. This command should also be run in **root** directory:
 ```
 $ npm run installDeps
 ```
 
-In order to start project just run following command in **root**:
+In order to start project just run following command in **root**, it will run both client and server dependancies:
 ```
 $ npm start
 ```
