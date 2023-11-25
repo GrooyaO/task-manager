@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Task } from '../../types'
-import { apiListTasks } from '../../api/endpoints'
+import { apiListTasks, deleteTask } from '../../api/endpoints'
+import { Box, Card, CardContent, Typography, CardActions } from '@mui/material'
+import DeleteTask from '../DeleteTask'
 
 export default function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([])
@@ -25,15 +27,27 @@ export default function TaskList() {
       </div>
     )
   }
+  const handleDeleteTask = async (taskId: string) => {
+    await deleteTask(taskId)
+  }
 
   return (
-    <div>
+    <Box>
       {tasks.map((task: Task) => (
-        <div key={task.id}>
-          <span>{task.title}</span>
-          <span>{task.description}</span>
-        </div>
+        <Card key={task.id}>
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {task.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {task.description}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <DeleteTask onDelete={handleDeleteTask} taskId={task.id} />
+          </CardActions>
+        </Card>
       ))}
-    </div>
+    </Box>
   )
 }
