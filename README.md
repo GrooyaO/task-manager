@@ -1,4 +1,5 @@
 
+
 # Title
 
 A simple task management application written in Typescript using the MERN stack.
@@ -41,6 +42,8 @@ $ docker compose up
 
 This will start Docker containers inside Docker.
 Then just enter the url into browser bar (the one from .env).
+The client address should be on http://localhost:5173/
+The server address should be on http://localhost:8000/
 
 2. Regular setup with npm and local MongoDB instance up and running (MongoDB Compass preferred)
 
@@ -69,7 +72,8 @@ In order to start the project, just run the following command in **root**, it wi
 $ npm start
 
 ```
-
+The client address should be on http://localhost:5173/
+The server address should be on http://localhost:8000/
 ## Development Approach
 
 For faster development at the start, I've used concurrently to run both client and server in parallel. It is easier and less hassle to develop with both of these running simultaneously.
