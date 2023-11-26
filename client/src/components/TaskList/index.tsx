@@ -1,51 +1,42 @@
-import { useState, useEffect } from 'react'
 import { Task } from '../../types'
-import { apiListTasks, deleteTask } from '../../api/endpoints'
-import { Box, Card, CardContent, Typography, CardActions } from '@mui/material'
-import DeleteTask from '../DeleteTask'
+import { Box, Card, Typography } from '@mui/material'
+import TaskListItem from '../TaskListItem'
+import { useTasks } from '../../App'
 
 export default function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([])
+  const { data: tasks, error, isLoading } = useTasks()
 
-  async function getTasks() {
-    try {
-      const data = await apiListTasks()
-      setTasks(data)
-    } catch (error) {
-      console.error(`Error fetching tasks: ${error}`)
-    }
-  }
-
-  useEffect(() => {
-    getTasks()
-  }, [])
-
-  if (tasks.length === 0) {
+  if (tasks && tasks.length === 0) {
     return (
-      <div>
-        <p>No tasks to show</p>
-      </div>
+      <Box>
+        <Typography variant="body2" color="text.secondary">
+          Task list is empty
+        </Typography>
+      </Box>
     )
   }
-  const handleDeleteTask = async (taskId: string) => {
-    await deleteTask(taskId)
-  }
+
+  if (isLoading) return 'Loading...'
+  if (error) return '🚨 An error has occurred: ' + error.message
 
   return (
-    <Box>
-      {tasks.map((task: Task) => (
-        <Card key={task.id}>
-          <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {task.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {task.description}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <DeleteTask onDelete={handleDeleteTask} taskId={task.id} />
-          </CardActions>
+    <Box
+      sx={{
+        display: 'grid',
+        marginTop: '15px',
+        gridTemplateColumns: 'auto auto',
+      }}
+    >
+      {tasks?.map((task: Task) => (
+        <Card
+          //pass in id as key
+          key={task.id}
+          elevation={3}
+          sx={{
+            margin: '5px',
+          }}
+        >
+          <TaskListItem task={task} />
         </Card>
       ))}
     </Box>

@@ -2,16 +2,25 @@ import { useState } from 'react'
 import { Button, TextField, Box } from '@mui/material'
 import { Task } from '../../types'
 import { apiCreateTask } from '../../api/endpoints'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export default function AddTask() {
+  const queryClient = useQueryClient()
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
   })
 
-  function addTask(e: React.SyntheticEvent) {
+  const { mutate: addTaskMutation } = useMutation({
+    mutationFn: (newTask: Task) => apiCreateTask(newTask),
+    mutationKey: ['addTask'],
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['tasks'] }),
+  })
+
+  function handleFormSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
-    apiCreateTask(formData as Task)
+    addTaskMutation(formData as Task)
     setFormData({ title: '', description: '' })
   }
 
@@ -27,23 +36,28 @@ export default function AddTask() {
   return (
     <Box
       component={'form'}
-      onSubmit={(e) => {
-        addTask(e)
-      }}
+      onSubmit={(e) => handleFormSubmit(e)}
+      autoComplete="off"
+      noValidate
+      sx={{ maxWidth: { lg: '250px' }, margin: '0 auto' }}
     >
       <TextField
         id="title"
         label="Title"
         variant="outlined"
         onChange={handleInputChange}
+        fullWidth
+        size="small"
       />
       <TextField
         id="description"
         label="Description"
-        variant="outlined"
         onChange={handleInputChange}
+        variant="outlined"
+        fullWidth
+        size="small"
       />
-      <Button variant="text" type="submit">
+      <Button variant="contained" type="submit">
         Add Task
       </Button>
     </Box>
