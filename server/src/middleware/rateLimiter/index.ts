@@ -5,7 +5,7 @@ import rateLimit from 'express-rate-limit'
 export default function rateLimiter(app: express.Application) {
   const rateLimitMiddleware = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 30,
+    max: 50,
     message: 'You have exceeded your 30 requests per 15 minute window.',
     headers: true,
     legacyHeaders: false,

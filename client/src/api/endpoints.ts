@@ -2,39 +2,79 @@ import { Task } from '../types'
 import { axiosInstance } from './apiBase'
 
 async function apiListTasks() {
-  const response = await axiosInstance({
-    method: 'GET',
-    url: '/tasks',
-  })
+  try {
+    const response = await axiosInstance({
+      method: 'GET',
+      url: '/tasks',
+    })
 
-  return response.data
+    return response.data
+  } catch (error: any) {
+    if (error.response) {
+      // Handle response error from Axios
+      throw new Error(error.response.data)
+    } else {
+      // Handle non-response error
+      throw new Error(error.message)
+    }
+  }
 }
 
 async function apiCreateTask(task: Task) {
-  const response = await axiosInstance({
-    method: 'POST',
-    url: '/tasks',
-    data: task,
-  })
+  try {
+    const response = await axiosInstance({
+      method: 'POST',
+      url: '/tasks',
+      data: task,
+    })
 
-  return response.data
+    return response.data
+  } catch (error: any) {
+    if (error.response) {
+      // Handle response error from Axios
+      throw new Error(error.response.data)
+    } else {
+      // Handle non-response error
+      throw new Error(error.message)
+    }
+  }
 }
 
 async function deleteTask(id: string) {
-  await axiosInstance({
-    method: 'DELETE',
-    url: `/tasks/${id}`,
-  })
+  try {
+    await axiosInstance({
+      method: 'DELETE',
+      url: `/tasks/${id}`,
+    })
+  } catch (error: any) {
+    if (error.response) {
+      // Handle response error from Axios
+      throw new Error(error.response.data)
+    } else {
+      // Handle non-response error
+      throw new Error(error.message)
+    }
+  }
 }
 
 async function updateTask(id: string, task: Task) {
-  const response = await axiosInstance({
-    method: 'PUT',
-    url: `/tasks/${id}`,
-    data: task,
-  })
+  try {
+    const response = await axiosInstance({
+      method: 'PUT',
+      url: `/tasks/${id}`,
+      data: task,
+    })
 
-  return response.data
+    return response.data
+  } catch (error: any) {
+    if (error.response) {
+      // Handle response error from Axios
+      throw new Error(error.response.data)
+    } else {
+      // Handle non-response error
+      throw new Error(error.message)
+    }
+  }
 }
 
 export { apiListTasks, apiCreateTask, deleteTask, updateTask }

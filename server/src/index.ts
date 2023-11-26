@@ -3,6 +3,7 @@ import defineRoutes from './routes'
 import { dbConnection } from './dataAccess'
 import rateLimiter from './middleware/rateLimiter'
 import cors from 'cors'
+import { errorHandler } from './middleware/errorHandling'
 
 // Initialize express app
 const app: Application = express()
@@ -22,6 +23,9 @@ defineRoutes(app)
 
 // Connect to MongoDB and seed data if DB is not seeded already
 dbConnection()
+
+// Error handling middleware
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`Node server running at: http://localhost:${port}`)

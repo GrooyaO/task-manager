@@ -15,7 +15,12 @@ export default function TaskListItem({ task }: { task: Task }) {
     setIsEditMode(!isEditMode)
   }
 
-  const { mutate: editTaskMutation } = useMutation({
+  const {
+    mutate: editTaskMutation,
+    isPending,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: ({ taskId, newTask }: { taskId: string; newTask: Task }) =>
       updateTask(taskId, newTask),
     mutationKey: ['editTask'],
@@ -26,6 +31,14 @@ export default function TaskListItem({ task }: { task: Task }) {
     editTaskMutation({ taskId: task.id, newTask: updatedTaskData })
     toggleEditMode()
   }
+
+  if (isError)
+    return (
+      <Typography variant="body1">
+        {'🚨 An error has occurred: ' + error.message}
+      </Typography>
+    )
+  if (isPending) return 'Loading...'
 
   if (isEditMode) {
     return (

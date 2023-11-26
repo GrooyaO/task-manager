@@ -14,7 +14,7 @@ function useTasks() {
   })
 }
 export default function TaskList() {
-  const { data: tasks, error, isLoading } = useTasks()
+  const { data: tasks, error, isLoading, isError } = useTasks()
 
   if (tasks && tasks.length === 0) {
     return (
@@ -26,8 +26,14 @@ export default function TaskList() {
     )
   }
 
+  if (isError)
+    return (
+      <Typography variant="body1">
+        {'🚨 An error has occurred: ' + error.message}
+      </Typography>
+    )
+
   if (isLoading) return 'Loading...'
-  if (error) return '🚨 An error has occurred: ' + error.message
 
   return (
     <Box
