@@ -1,13 +1,15 @@
 import mongoose from 'mongoose'
-import { generateTasks } from '../seeds'
 import { Task } from '../models/task'
+import { generateTasks } from '../seeds'
 
 const dbConnection = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/task-db')
+    await mongoose.connect(
+      process.env.MONGO_URI || 'mongodb://root:example@mongodb:27017/mydatabase'
+    )
     console.log('MongoDB connection established')
 
-    // Check if the data has already been seeded
+    // Check if the data has already been seeded if not run seeder
     const existingTasks = await Task.countDocuments()
     if (existingTasks === 0) {
       const tasks = generateTasks(5)

@@ -6,7 +6,7 @@ import cors from 'cors'
 
 // Initialize express app
 const app: Application = express()
-const port = 8000
+const port = process.env.SERVER_PORT ?? 8000
 
 // Enable CORS for all routes
 app.use(cors())

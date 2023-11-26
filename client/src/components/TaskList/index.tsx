@@ -1,8 +1,18 @@
-import { Task } from '../../types'
 import { Box, Card, Typography } from '@mui/material'
 import TaskListItem from '../TaskListItem'
-import { useTasks } from '../../App'
+import { Task } from '../../types'
+import { useQuery } from '@tanstack/react-query'
+import { apiListTasks } from '../../api/endpoints'
 
+function useTasks() {
+  return useQuery({
+    queryKey: ['tasks'],
+    queryFn: async (): Promise<Array<Task>> => {
+      const data = await apiListTasks()
+      return data
+    },
+  })
+}
 export default function TaskList() {
   const { data: tasks, error, isLoading } = useTasks()
 
