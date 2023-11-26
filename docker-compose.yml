@@ -1,0 +1,58 @@
+version: '3.8'
+
+x-app: &default-app
+  env_file:
+    - '.env'
+  restart: '${DOCKER_RESTART_POLICY:-unless-stopped}'
+  stop_grace_period: '3s'
+  tty: true
+  healthcheck:
+    interval: '60s'
+    timeout: '3s'
+    start_period: '5s'
+    retries: 3
+
+services:
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: mydatabase
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - '27017:27017'
+  server:
+    <<: *default-app
+    build:
+      context: './server'
+      dockerfile: Dockerfile
+      target: ${NODE_ENV}
+      args:
+        - 'NODE_ENV=${NODE_ENV}'
+    ports:
+      - '${DOCKER_SERVER_PORT_FORWARD}:${SERVER_PORT}'
+    volumes:
+      - './server:/node/app:delegated'
+      - '/node/app/node_modules'
+    environment:
+      - MONGO_URI=${MONGO_URI}
+    depends_on:
+      - mongodb
+
+  client:
+    <<: *default-app
+    build:
+      context: './client'
+      target: ${NODE_ENV}
+      dockerfile: Dockerfile
+      args:
+        - 'NODE_ENV=${NODE_ENV}'
+    ports:
+      - '${DOCKER_CLIENT_PORT_FORWARD}:${CLIENT_PORT}'
+    volumes:
+      - './client:/node/app:delegated'
+      - '/node/app/node_modules'
+volumes:
+  mongodb_data:
