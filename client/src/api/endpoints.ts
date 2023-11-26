@@ -23,8 +23,18 @@ async function apiCreateTask(task: Task) {
 async function deleteTask(id: string) {
   await axiosInstance({
     method: 'DELETE',
-    url: `/task/${id}`,
+    url: `/tasks/${id}`,
   })
 }
 
-export { apiListTasks, apiCreateTask, deleteTask }
+async function updateTask(id: string, task: Task) {
+  const response = await axiosInstance({
+    method: 'PUT',
+    url: `/tasks/${id}`,
+    data: task,
+  })
+
+  return response.data
+}
+
+export { apiListTasks, apiCreateTask, deleteTask, updateTask }

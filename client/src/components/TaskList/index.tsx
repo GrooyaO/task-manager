@@ -24,7 +24,7 @@ export default function TaskList() {
       sx={{
         display: 'grid',
         marginTop: '15px',
-        gridTemplateColumns: 'auto auto',
+        gridTemplateColumns: { xs: 'auto', lg: 'auto auto' },
       }}
     >
       {tasks?.map((task: Task) => (

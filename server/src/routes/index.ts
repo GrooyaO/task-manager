@@ -32,7 +32,7 @@ export default function defineRoutes(app: express.Application) {
   })
 
   // DELETE - delete task
-  router.delete('/task/:id', async (req: Request, res: Response) => {
+  router.delete('/tasks/:id', async (req: Request, res: Response) => {
     try {
       const deletedTask = await Task.findByIdAndDelete(req.params.id)
       if (!deletedTask) {
@@ -48,7 +48,7 @@ export default function defineRoutes(app: express.Application) {
   })
 
   // PUT - update a task
-  router.put('/task/:id', async (req: Request, res: Response) => {
+  router.put('/tasks/:id', async (req: Request, res: Response) => {
     try {
       const updatedTask = await Task.findByIdAndUpdate(
         req.params.id,
