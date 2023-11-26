@@ -45,7 +45,7 @@ Then just enter the url into browser bar (the one from .env).
 The client address should be on http://localhost:5173/
 The server address should be on http://localhost:8000/
 
-2. Regular setup with npm and local MongoDB instance up and running (MongoDB Compass preferred)
+2. Regular setup with npm and local MongoDB instance connection (MongoDB Compass preferred) - this is preferred way
 
 Once the project is cloned, cd into the "root" directory and run:
 
