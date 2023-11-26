@@ -1,5 +1,6 @@
 
 
+
 # Title
 
 A simple task management application written in Typescript using the MERN stack.
@@ -7,6 +8,11 @@ A simple task management application written in Typescript using the MERN stack.
 ## About
 
 This application supports basic CRUD operations on the client as well as the server. It allows users to manage daily tasks with a simple, minimalistic and responsive UI.
+
+## Prerequisites
+node > v16
+npm
+mongodb
 
 ## Setup and Installation
 
