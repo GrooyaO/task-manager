@@ -10,9 +10,9 @@ A simple task management application written in Typescript using the MERN stack.
 This application supports basic CRUD operations on the client as well as the server. It allows users to manage daily tasks with a simple, minimalistic and responsive UI.
 
 ## Prerequisites
-node > v16
-npm
-mongodb
+node > v16 <br>
+npm<br>
+mongodb<br>
 
 ## Setup and Installation
 
@@ -26,7 +26,7 @@ $ git clone https://github.com/GrooyaO/task-manager.git
 
 ### There are two ways to setup this project.
 
-For both approaches, make sure you've got an env setup. You can copy values from env.example.
+For both approaches, make sure you've got .env setup. You can copy values from env.example.
 
 1. Docker containers
 
@@ -47,9 +47,9 @@ $ docker compose up
 ```
 
 This will start Docker containers inside Docker.
-Then just enter the url into browser bar (the one from .env).
-The client address should be on http://localhost:5173/
-The server address should be on http://localhost:8000/
+Then just enter the url into browser bar (the one from .env).<br>
+The client address should be on http://localhost:5173/<br>
+The server address should be on http://localhost:8000/<br>
 
 2. Regular setup with npm and local MongoDB instance connection (MongoDB Compass preferred) - this is preferred way
 
@@ -78,8 +78,8 @@ In order to start the project, just run the following command in **root**, it wi
 $ npm start
 
 ```
-The client address should be on http://localhost:5173/
-The server address should be on http://localhost:8000/
+The client address should be on http://localhost:5173/<br>
+The server address should be on http://localhost:8000/<br>
 ## Development Approach
 
 For faster development at the start, I've used concurrently to run both client and server in parallel. It is easier and less hassle to develop with both of these running simultaneously.
