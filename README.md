@@ -109,6 +109,6 @@ MongoDB is the database of choice alongside Mongoose as an ODM library.
 
 ## Next steps
 
-Tests should be primary objective to be added next and then the CI/CD pipeline once there is need for it.
+Tests should be primary objective to be added next and then the CI/CD pipeline once there is need for it.<br>
 Error handling middleware should be more robust.
 
