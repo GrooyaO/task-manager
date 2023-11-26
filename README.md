@@ -1,7 +1,7 @@
 
 # Title
 
-A simple task management application written in Typescript using the MERN stack
+A simple task management application written in Typescript using the MERN stack.
 
 ## About
 
